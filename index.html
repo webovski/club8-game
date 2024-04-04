@@ -26,12 +26,16 @@
       cursor: pointer;
       transition: transform 0.2s ease; /* Smooth transition */
     }
+    .ball-center:hover,
+    .ball-center:active {
+      transform: scale(1.2); /* Change the scale as you need */
+    }
     .clicked {
       transform: scale(1.2); /* Change the scale as you need */
     }
     .click-number {
       position: absolute;
-      font-size: 32px; /* Set font size to 32px */
+      font-size: 64px; /* Set font size to approximately twice the size */
       color: white; /* Set color to white */
       opacity: 1;
       transition: opacity 0.5s ease, top 1s ease; /* Smooth transition for opacity and top */
