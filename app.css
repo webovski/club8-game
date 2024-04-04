@@ -1,6 +1,10 @@
 body {
     background: rgb(2,0,36);
     background: linear-gradient(180deg, rgba(2,0,36,1) 0%, rgba(0,0,0,1) 35%, rgba(148,148,148,1) 100%);
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }
 .ball-center {
     font-size: 10rem;
