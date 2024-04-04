@@ -47,9 +47,10 @@
       if (!isAnimating) {
         var ball = document.querySelector('.ball-center');
         isAnimating = true;
-        ball.classList.add('clicked');
+        var rotation = Math.random() * 360; // Generate a random rotation angle
+        ball.style.transform = 'rotate(' + rotation + 'deg) scale(1.2)'; // Apply rotation and scaling
         setTimeout(function() {
-          ball.classList.remove('clicked');
+          ball.style.transform = 'rotate(' + rotation + 'deg)'; // Apply only rotation (remove scaling)
           isAnimating = false;
         }, 200); // Adjust this value to match transition duration
       }
