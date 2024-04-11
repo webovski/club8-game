@@ -53,6 +53,11 @@
     }
 
     .ball .inside {
+        -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+    -moz-user-select: none; /* Firefox */
+    -ms-user-select: none; /* Internet Explorer/Edge */
+    user-select: none; /* Non-prefixed version, currently supported by Chrome and Opera */
       position: absolute;
       background: linear-gradient(45deg, rgba(20, 0, 20, 1) 0%, rgba(40, 0, 40, 1) 100%);
       width: 160px;
@@ -71,28 +76,9 @@
       position: relative;
       height: 100%;
       width: 100%;
-      transform: scale(.9) rotate(15deg);
-      opacity: 0;
-      transition: transform 1.3s ease, opacity 1.3s ease;
+                  perspective: 1000px; /* Добавляем перспективу */
     }
 
-    .ball:hover .answer {
-      transform: scale(1) rotate(0);
-      opacity: 1;
-    }
-
-    .ball .triangle {
-      position: absolute;
-      border: 69px solid transparent;
-      border-top: 121px solid rgba(255, 255, 255, .1);
-      top: 69%;
-      right: 0;
-      bottom: 0;
-      margin: auto;
-      width: 0;
-      height: 0;
-      left: 0;
-    }
 
     .ball .inside-shadow {
       position: absolute;
@@ -119,18 +105,18 @@
     .ball .text {
       text-align: center;
       width: 50%;
-      margin-top: .4em;
       line-height: 1.2;
       text-transform: uppercase;
       letter-spacing: .01em;
       text-indent: .01em;
       color: rgba(240, 220, 240, .86);
       text-shadow: 1px 1px 2px rgba(40, 0, 200, .8);
+      font-size: 5rem;
     }
 
     .shadow {
       position: absolute;
-      bottom: -2.5%;
+      bottom: -5.5%;
       right: 0;
       top: auto;
       left: 0;
@@ -143,11 +129,16 @@
       border-radius: 100%;
       filter: blur(40px);
       -webkit-filter: blur(50px);
-      transform: scaleY(.1) translate(0);
+      transform: scaleY(.5) translate(0);
       transform-origin: bottom;
     }
 
     .ad {
+        -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+    -moz-user-select: none; /* Firefox */
+    -ms-user-select: none; /* Internet Explorer/Edge */
+    user-select: none; /* Non-prefixed version, currently supported by Chrome and Opera */
       position: absolute;
       bottom: 0;
       left: 0;
@@ -161,6 +152,46 @@
       color: rgba(240, 220, 240, .86);
       text-align: center;
     }
+
+   .shuffle-animation {
+            animation: shuffle 2s ease-in-out;
+        }
+
+        @keyframes shuffle {
+            0% { transform: translate(0, 0); }
+            50% { transform: translate(50px, 50px); }
+            100% { transform: translate(0, 0); }
+        }
+
+
+.text {
+  color: white;
+  font-size: 48px;
+}
+
+.text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    font-size: 48px;
+    opacity: 1; /* Начальная прозрачность */
+}
+
+.shuffle-animation {
+    animation: shuffle 1s ease-in-out; /* Увеличиваем общую длительность анимации до 4 секунд */
+}
+
+@keyframes shuffle {
+    0% { transform: translate(-50%, -50%); } /* Начало - текущее положение */
+    25% { transform: translate(-200%, -50%); opacity: 0;} /* Половина времени - перемещение влево и исчезновение */
+    50% { transform: translate(100%, -50%); opacity: 0;} /* Полная невидимость на половине времени */
+    100% { transform: translate(-50%, -50%);} /* Конец - перемещение обратно влево и исчезновение */
+}
+
+            25% { transform: translate(-200%, -50%); opacity: 0;} /* Половина времени - перемещение влево и исчезновение */
+            50% { transform: translate(100%, -50%); opacity: 0;} /* Полная невидимость на половине времени */
   </style>
 </head>
 
@@ -171,10 +202,9 @@
         <div class="upper-shine"></div>
         <div class="inside">
           <div class="answer">
-            <div class="triangle"></div>
-            <div class="content">
+            <div class="content tap-here" onclick="handleClick()">
               <div class="text">
-                Signs points to yes
+                8
               </div>
             </div>
           </div>
@@ -183,6 +213,43 @@
       </div>
     </div>
 
-    <div class="ad">Advertisement</div>
+    <div class="ad">HODL ANON</div>
   </div>
+<script>
+        let isAnimating = false;
+
+        function handleClick() {
+            if (!isAnimating) {
+                isAnimating = true;
+                const text = document.querySelector('.text');
+                text.classList.remove('shuffle-animation');
+                setTimeout(() => {
+                    text.classList.add('shuffle-animation');
+                    isAnimating = false;
+                }, 0);
+            }
+        }
+
+        function getRandomAnimation() {
+            const keyframesSets = [
+                [
+                    { transform: 'translate(-50%, -50%)' },
+                    { transform: 'translate(-200%, -50%)', opacity: 0 },
+                    { transform: 'translate(100%, -50%)', opacity: 0 },
+                    { transform: 'translate(-50%, -50%)' }
+                ],
+                [
+                    { transform: 'translate(-50%, -50%)' },
+                    { transform: 'translate(-200%, -50%)', opacity: 0 },
+                    { transform: 'translate(100%, -50%)', opacity: 0 },
+                    { transform: 'translate(-50%, -50%)' }
+                ]
+            ];
+
+            const randomSetIndex = Math.floor(Math.random() * keyframesSets.length);
+            const keyframes = keyframesSets[randomSetIndex];
+            return `shuffle ${getRandomDuration()}s ease-in-out`;
+        }
+
+</script>
 </body>
