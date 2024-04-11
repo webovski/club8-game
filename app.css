@@ -10,7 +10,7 @@ html, body {
     }
     .ball {
   display: inline-block;
-  width: 100%;
+  width: auto;
   height: 100%;
   margin: 0;
   border-radius: 50%;
