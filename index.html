@@ -167,9 +167,13 @@
       align-items: center;
       cursor: pointer;
     }
+    .tap-here {
+          transition: font-size 0.3s ease-in-out; /* Add transition for font size */
+
+    }
     .floating-number {
     position: absolute;
-    font-size: 32px;
+    font-size: 40px;
     color: #fff;
     animation: floatAndFade 1s ease-in-out forwards;
 }
@@ -206,8 +210,19 @@
 
 <script>
 function handleClick(event) {
+
+    var textElement = document.getElementById("number");
+    if (!textElement.classList.contains("animating")) {
+        textElement.classList.add("animating");
+        textElement.style.fontSize = "99px"; // Increase font size slightly
+        setTimeout(function() {
+            textElement.style.fontSize = "72px"; // Reset font size after animation
+            textElement.classList.remove("animating");
+        }, 300);
+    }
+
     var textElement = document.createElement("div");
-    textElement.textContent = "1";
+    textElement.textContent = "+2";
     textElement.classList.add("floating-number");
 
     // Генерируем случайное смещение относительно центра клика
