@@ -1,6 +1,7 @@
+<!DOCTYPE html>
+<html lang="en">
 <head>
-<!--  <meta name="viewport" content="width=350">-->
-  <meta meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
   <style>
     @import url('https://fonts.googleapis.com/css?family=Oswald');
 
@@ -55,11 +56,11 @@
     }
 
     .ball .inside {
-        -webkit-touch-callout: none; /* iOS Safari */
-    -webkit-user-select: none; /* Safari */
-    -moz-user-select: none; /* Firefox */
-    -ms-user-select: none; /* Internet Explorer/Edge */
-    user-select: none; /* Non-prefixed version, currently supported by Chrome and Opera */
+      -webkit-touch-callout: none;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
       position: absolute;
       background: linear-gradient(45deg, rgba(20, 0, 20, 1) 0%, rgba(40, 0, 40, 1) 100%);
       width: 160px;
@@ -78,9 +79,8 @@
       position: relative;
       height: 100%;
       width: 100%;
-                  perspective: 1000px; /* Добавляем перспективу */
+      perspective: 1000px;
     }
-
 
     .ball .inside-shadow {
       position: absolute;
@@ -106,14 +106,15 @@
 
     .ball .text {
       text-align: center;
-      width: 50%;
+      width: 100%;
       line-height: 1.2;
       text-transform: uppercase;
       letter-spacing: .01em;
       text-indent: .01em;
       color: rgba(240, 220, 240, .86);
       text-shadow: 1px 1px 2px rgba(40, 0, 200, .8);
-      font-size: 5rem;
+      font-size: 72px;
+      transition: font-size 0.3s ease-in-out; /* Add transition for font size */
     }
 
     .shadow {
@@ -136,11 +137,11 @@
     }
 
     .ad {
-        -webkit-touch-callout: none; /* iOS Safari */
-    -webkit-user-select: none; /* Safari */
-    -moz-user-select: none; /* Firefox */
-    -ms-user-select: none; /* Internet Explorer/Edge */
-    user-select: none; /* Non-prefixed version, currently supported by Chrome and Opera */
+      -webkit-touch-callout: none;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
       position: absolute;
       bottom: 0;
       left: 0;
@@ -155,103 +156,49 @@
       text-align: center;
     }
 
-   .shuffle-animation {
-            animation: shuffle 2s ease-in-out;
-        }
-
-        @keyframes shuffle {
-            0% { transform: translate(0, 0); }
-            50% { transform: translate(50px, 50px); }
-            100% { transform: translate(0, 0); }
-        }
-
-
-.text {
-  color: white;
-  font-size: 48px;
-}
-
-.text {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    color: white;
-    font-size: 48px;
-    opacity: 1; /* Начальная прозрачность */
-}
-
-.shuffle-animation {
-    animation: shuffle 1s ease-in-out; /* Увеличиваем общую длительность анимации до 4 секунд */
-}
-
-@keyframes shuffle {
-    0% { transform: translate(-50%, -50%); } /* Начало - текущее положение */
-    25% { transform: translate(-200%, -50%); opacity: 0;} /* Половина времени - перемещение влево и исчезновение */
-    50% { transform: translate(100%, -50%); opacity: 0;} /* Полная невидимость на половине времени */
-    100% { transform: translate(-50%, -50%);} /* Конец - перемещение обратно влево и исчезновение */
-}
-
-            25% { transform: translate(-200%, -50%); opacity: 0;} /* Половина времени - перемещение влево и исчезновение */
-            50% { transform: translate(100%, -50%); opacity: 0;} /* Полная невидимость на половине времени */
+    .tap-here {
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+    }
   </style>
 </head>
-
 <body>
-  <div class="surface">
+<div class="surface">
     <div class="ball-and-shadow">
-      <div class="ball">
-        <div class="upper-shine"></div>
-        <div class="inside">
-          <div class="answer">
-            <div class="content tap-here" onclick="handleClick()">
-              <div class="text">
-                8
-              </div>
+        <div class="ball">
+            <div class="upper-shine"></div>
+            <div class="inside">
+                <div class="answer">
+                    <div class="tap-here" onclick="handleClick()">
+                        <div class="text" id="number">8</div>
+                    </div>
+                </div>
+                <div class="inside-shadow"></div>
             </div>
-          </div>
-          <div class="inside-shadow"></div>
         </div>
-      </div>
     </div>
-
     <div class="ad">HODL ANON</div>
-  </div>
+</div>
+
 <script>
-        let isAnimating = false;
-
-        function handleClick() {
-            if (!isAnimating) {
-                isAnimating = true;
-                const text = document.querySelector('.text');
-                text.classList.remove('shuffle-animation');
-                setTimeout(() => {
-                    text.classList.add('shuffle-animation');
-                    isAnimating = false;
-                }, 0);
-            }
-        }
-
-        function getRandomAnimation() {
-            const keyframesSets = [
-                [
-                    { transform: 'translate(-50%, -50%)' },
-                    { transform: 'translate(-200%, -50%)', opacity: 0 },
-                    { transform: 'translate(100%, -50%)', opacity: 0 },
-                    { transform: 'translate(-50%, -50%)' }
-                ],
-                [
-                    { transform: 'translate(-50%, -50%)' },
-                    { transform: 'translate(-200%, -50%)', opacity: 0 },
-                    { transform: 'translate(100%, -50%)', opacity: 0 },
-                    { transform: 'translate(-50%, -50%)' }
-                ]
-            ];
-
-            const randomSetIndex = Math.floor(Math.random() * keyframesSets.length);
-            const keyframes = keyframesSets[randomSetIndex];
-            return `shuffle ${getRandomDuration()}s ease-in-out`;
-        }
-
+function handleClick() {
+    var textElement = document.getElementById("number");
+    if (!textElement.classList.contains("animating")) {
+        textElement.classList.add("animating");
+        textElement.style.fontSize = "99px"; // Increase font size slightly
+        setTimeout(function() {
+            textElement.style.fontSize = "72px"; // Reset font size after animation
+            textElement.classList.remove("animating");
+        }, 300);
+    }
+}
 </script>
 </body>
+</html>
