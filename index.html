@@ -167,6 +167,23 @@
       align-items: center;
       cursor: pointer;
     }
+    .floating-number {
+    position: absolute;
+    font-size: 32px;
+    color: #fff;
+    animation: floatAndFade 1s ease-in-out forwards;
+}
+
+@keyframes floatAndFade {
+    0% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    100% {
+        opacity: 0;
+        transform: translateY(-50px);
+    }
+}
   </style>
 </head>
 <body>
@@ -176,7 +193,7 @@
             <div class="upper-shine"></div>
             <div class="inside">
                 <div class="answer">
-                    <div class="tap-here" onclick="handleClick()">
+                    <div class="tap-here" onclick="handleClick(event)">
                         <div class="text" id="number">8</div>
                     </div>
                 </div>
@@ -188,17 +205,36 @@
 </div>
 
 <script>
-function handleClick() {
-    var textElement = document.getElementById("number");
-    if (!textElement.classList.contains("animating")) {
-        textElement.classList.add("animating");
-        textElement.style.fontSize = "99px"; // Increase font size slightly
+function handleClick(event) {
+    var textElement = document.createElement("div");
+    textElement.textContent = "1";
+    textElement.classList.add("floating-number");
+
+    // Генерируем случайное смещение относительно центра клика
+    var offsetX = Math.floor(Math.random() * 10) - 5;
+    var offsetY = Math.floor(Math.random() * 10) - 5;
+
+    // Вычисляем новую позицию для цифры
+    var newX = event.clientX + offsetX;
+    var newY = event.clientY + offsetY;
+
+    // Устанавливаем новую позицию для цифры
+    textElement.style.left = newX + "px";
+    textElement.style.top = newY + "px";
+
+    document.body.appendChild(textElement);
+
+    // Запускаем анимацию и исчезновение цифры через некоторое время
+    setTimeout(function() {
+        textElement.style.opacity = "0";
+        textElement.style.top = (parseInt(textElement.style.top) - 50) + "px"; // Поднимаем немного вверх
         setTimeout(function() {
-            textElement.style.fontSize = "72px"; // Reset font size after animation
-            textElement.classList.remove("animating");
-        }, 300);
-    }
+            textElement.remove();
+        }, 1000);
+    }, 10);
 }
+
+
 </script>
 </body>
 </html>
